@@ -18,8 +18,6 @@ module.exports = {
                         .select("userId")
                         .read()
                         .then(function (users) {
-                            console.log(u);
-                            console.log(users);
                             getUserFromFriendId(u.concat(users));
                         });
                 });
@@ -31,7 +29,6 @@ module.exports = {
                 .select("userId")
                 .read()
                 .then(function (users) {
-                    console.log(users);
                     getUserFromFriendId(users);
                 });
         }
@@ -39,13 +36,11 @@ module.exports = {
         function getUserFromFriendId(matchingFriendUserIds) {
             var usersTable = context.tables('User');
             console.log("get user from friend id");
-            console.log(matchingFriendUserIds);
             usersTable.where(function (arr) {
                     return this.id in arr;
                 }, matchingFriendUserIds)
                 .read()
                 .then(function (users) {
-                    console.log(users);
                     res.send(users);
                 });
         }
